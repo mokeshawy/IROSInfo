@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">IROSInfo</string>
+
+    <string name="home">Home</string>
+    <string name="paymentsDistribution">Payments Distribution</string>
+    <string name="enterIrosNumber">Enter IROS number</string>
+    <string name="irosInfo">IROS Info</string>
+    <string name="scanIros">Scan</string>
+    <string name="imageCapture">Capture Image</string>
+    <string name="captureImage">Capture Image</string>
+    <string name="save">Save</string>
+    <string name="clear">Clear</string>
+    <string name="thereIsNoImageCapture">There is no image capture</string>
+    <string name="pleaseEntroIrosNumber">Please enter IROS number</string>
 </resources>

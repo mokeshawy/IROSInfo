@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Regular_Subtitle">
+        <item name="fontFamily">@font/bahij_the_sans_arabic_plain</item>
+        <item name="android:textSize">@dimen/_14sdp</item>
+    </style>
+
+
+    <style name="Regular_Body1">
+        <item name="fontFamily">@font/bahij_the_sans_arabic_plain</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+    </style>
+
+    <style name="Regular_Body">
+        <item name="fontFamily">@font/bahij_the_sans_arabic_plain</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+    </style>
+
+
+    <style name="Regular_Title">
+        <item name="fontFamily">@font/bahij_the_sans_arabic_plain</item>
+        <item name="android:textSize">@dimen/_15sdp</item>
+    </style>
+
+    <style name="Regular_H3">
+        <item name="fontFamily">@font/bahij_the_sans_arabic_plain</item>
+        <item name="android:textSize">@dimen/_17sdp</item>
+    </style>
+
+
+
+    <style name="SemiBold_Caption">
+        <item name="fontFamily">@font/bahij_the_sans_arabic_semi_bold</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+    </style>
+
+
+    <style name="SemiBold_Subtitle">
+        <item name="fontFamily">@font/bahij_the_sans_arabic_semi_bold</item>
+        <item name="android:textSize">@dimen/_14sdp</item>
+    </style>
+
+    <style name="SemiBold_Title">
+        <item name="fontFamily">@font/bahij_the_sans_arabic_semi_bold</item>
+        <item name="android:textSize">@dimen/_16sdp</item>
+    </style>
+
+    <style name="SemiBold_Body">
+        <item name="fontFamily">@font/bahij_the_sans_arabic_semi_bold</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+    </style>
+
+
+    <style name="SemiBold_H1">
+        <item name="fontFamily">@font/bahij_the_sans_arabic_semi_bold</item>
+        <item name="android:textSize">@dimen/_26sdp</item>
+    </style>
+
+
+    <style name="SemiBold_H3">
+        <item name="fontFamily">@font/bahij_the_sans_arabic_semi_bold</item>
+        <item name="android:textSize">@dimen/_17sdp</item>
+    </style>
+
+
+</resources>

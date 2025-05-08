@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IROSInfo</string>
+
+    <string name="home">الرئيسية</string>
+    <string name="paymentsDistribution">توزيع المدفوعات</string>
+    <string name="enterIrosNumber">أدخل رقم ال IROS</string>
+    <string name="irosInfo">IROS معلومات ال</string>
+    <string name="scanIros">مسح</string>
+    <string name="imageCapture">التقاط الصورة</string>
+    <string name="captureImage">التقط صورة</string>
+    <string name="save">حفط</string>
+    <string name="clear">حذف</string>
+    <string name="thereIsNoImageCapture">لم يتم التقاط صور</string>
+    <string name="pleaseEntroIrosNumber">من فضلك أدخل رقم ال IROS</string>
+</resources>

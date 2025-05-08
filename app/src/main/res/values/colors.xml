@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="greenishBlack">#1F2024</color>
+
+    <color name="colorPrimary">#184963</color>
+    <color name="colorPrimaryOpacity10">#1A184963</color>
+    <color name="cyanBlue">#447E9E</color>
+    <color name="slateBlue">#5D8092</color>
+    <color name="primaryWhite">#FFFFFFFF</color>
+
+    <color name="gray">#BDBDBD</color>
+    <color name="darkGray">#4B4B4B</color>
+    <color name="lightGray">#D1D1D1</color>
+    <color name="LightGrayish">#D1DBE0</color>
+    <color name="gainsBoro">#E4E4E4</color>
+    <color name="whiteSmoke">#F5F5F5</color>
+    <color name="cadetBlue">#A3B6C1</color>
+    <color name="silver">#CACACA</color>
+    <color name="taupeGray">#8E8E8E</color>
+    <color name="darkBlueGray">#64668E</color>
+    <color name="lightPowderBlue">#C7D8E2</color>
+
+    <color name="lightCream">#FFF7E1</color>
+    <color name="brightOrange">#FFAD0D</color>
+
+    <color name="fieryRed">#F64C4C</color>
+    <color name="crimsonRed">#EC2D30</color>
+
+
+    <color name="startLinearGradientColor">#447D9B</color>
+    <color name="endLinearGradientColor">#114B64</color>
+
+    <color name="darkGreen">#0C9D61</color>
+
+    <color name="almostBlack">#1F1F1F</color>
 </resources>

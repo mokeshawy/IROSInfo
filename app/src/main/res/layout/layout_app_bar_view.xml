@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardRootView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="@dimen/_3sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/liftAppBarIv"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="0dp"
+                android:padding="@dimen/_14sdp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/titleBarTv"
+                app:layout_constraintEnd_toStartOf="@id/titleBarTv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/titleBarTv"
+                tools:srcCompat="@drawable/ic_vector_arrow_left_primary" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/titleBarTv"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_48sdp"
+                android:gravity="center_vertical"
+                android:paddingVertical="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:maxLength="80"
+                android:maxLines="1"
+                android:textAppearance="@style/SemiBold_Title"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/rightAppBarIv"
+                app:layout_constraintStart_toEndOf="@+id/liftAppBarIv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginStart="@dimen/_14sdp"
+                app:layout_goneMarginEnd="@dimen/_14sdp"
+                tools:text="حسابى" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/rightAppBarIv"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="0dp"
+                android:padding="@dimen/_14sdp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/ic_vector_notification" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

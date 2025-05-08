@@ -47,6 +47,8 @@ dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar","*.aar"))))
 
+    implementation("androidx.test.ext:junit-ktx:1.2.1")
+
     implementation(project(path = ":common"))
     implementation(project(path = ":common:bases"))
     implementation(project(path = ":common:camera"))

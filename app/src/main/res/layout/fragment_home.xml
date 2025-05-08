@@ -1,11 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+        <com.irosinfo.ui_component.custom_views.app_bar.AppBarView
+            android:id="@+id/appBarView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/irosInfoTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@string/irosInfo"
+            android:textAppearance="@style/SemiBold_Title"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarView" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/irosNumberTil"
+            style="?attr/textInputOutlinedDenseStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toStartOf="@+id/scanBtn"
+            app:layout_constraintStart_toStartOf="@+id/irosInfoTv"
+            app:layout_constraintTop_toBottomOf="@+id/irosInfoTv"
+            app:startIconTint="@color/lightGray">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/irosNumberEt"
+                style="@style/appTextFieldStyle"
+                android:hint="@string/enterIrosNumber"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/scanBtn"
+            style="@style/Widget.Material3.Button.IROSInfo"
+            android:layout_width="wrap_content"
+            android:text="@string/scanIros"
+            app:layout_constraintBottom_toBottomOf="@+id/irosNumberTil"
+            app:layout_constraintEnd_toEndOf="@+id/irosInfoTv"
+            app:layout_constraintStart_toEndOf="@id/irosNumberTil"
+            app:layout_constraintTop_toTopOf="@+id/irosNumberTil"
+            app:layout_goneMarginBottom="@dimen/_350sdp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/imageCaptureTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@string/imageCapture"
+            android:textAppearance="@style/SemiBold_Title"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="@+id/scanBtn"
+            app:layout_constraintStart_toStartOf="@+id/irosNumberTil"
+            app:layout_constraintTop_toBottomOf="@+id/irosNumberTil" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/captureImagerBtn"
+            style="@style/Widget.Material3.Button.IROSInfo"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/captureImage"
+            app:layout_constraintEnd_toEndOf="@+id/imageCaptureTv"
+            app:layout_constraintStart_toStartOf="@+id/imageCaptureTv"
+            app:layout_constraintTop_toBottomOf="@+id/imageCaptureTv"
+            app:layout_goneMarginBottom="@dimen/_350sdp" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/emptyImageTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/thereIsNoImageCapture"
+            android:textAlignment="center"
+            android:textAppearance="@style/Regular_Subtitle"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/captureImagerBtn" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/imagePreviewRV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingBottom="@dimen/_70sdp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+            app:layout_constraintEnd_toEndOf="@+id/captureImagerBtn"
+            app:layout_constraintStart_toStartOf="@+id/captureImagerBtn"
+            app:layout_constraintTop_toBottomOf="@+id/captureImagerBtn"
+            app:spanCount="3"
+            tools:listitem="@layout/item_preview_image"
+            tools:visibility="visible" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveBtn"
+            style="@style/Widget.Material3.Button.IROSInfo"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:text="@string/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/clearBtn" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/clearBtn"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:gravity="center"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/clear"
+            android:textAppearance="@style/SemiBold_Subtitle"
+            android:textColor="@color/colorPrimary"
+            app:cornerRadius="@dimen/_7sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/saveBtn"
+            app:layout_constraintEnd_toStartOf="@id/saveBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/saveBtn" />
+
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/imagePreviewGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="imagePreviewRV,saveBtn,clearBtn"
+            tools:visibility="visible" />
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/previewImageIv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_40sdp"
+            android:paddingHorizontal="@dimen/_5sdp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/roundedImageViewRounded"
+            tools:srcCompat="@drawable/ic_profile_placeholder" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/closeIv"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_margin="@dimen/_15sdp"
+            app:layout_constraintStart_toStartOf="@+id/previewImageIv"
+            app:layout_constraintTop_toTopOf="@+id/previewImageIv"
+            app:srcCompat="@drawable/ic_vector_close_grey" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/presentImageGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="closeIv,previewImageIv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
