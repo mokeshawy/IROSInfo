@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -20,12 +22,29 @@ android {
     }
 
     buildTypes {
-        release {
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            isShrinkResources = false
+        }
+        getByName("release") {
+            //signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.txt")
+        }
+    }
+
+    flavorDimensions.add("version")
+    productFlavors {
+        create("staging") {
+            dimension = "version"
+            versionNameSuffix = ".stage"
+            applicationIdSuffix = ".stage"
+        }
+
+        create("live") {
+            dimension = "version"
         }
     }
     compileOptions {
@@ -45,7 +64,7 @@ android {
 
 dependencies {
 
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar","*.aar"))))
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 
     implementation("androidx.test.ext:junit-ktx:1.2.1")
 
@@ -53,6 +72,7 @@ dependencies {
     implementation(project(path = ":common:bases"))
     implementation(project(path = ":common:camera"))
     implementation(project(path = ":common:connectivity"))
+    implementation(project(path = ":common:crash_reporting"))
     implementation(project(path = ":common:extensions"))
     implementation(project(path = ":common:utils"))
 

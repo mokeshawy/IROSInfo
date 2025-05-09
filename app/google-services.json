@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1091627940140",
+    "project_id": "iros-info",
+    "storage_bucket": "iros-info.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091627940140:android:17168a2048005ba813d489",
+        "android_client_info": {
+          "package_name": "com.irosinfo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB7qwJxZJgKXQzBiGKipCdLn_5gumc32A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091627940140:android:5c4d36064b36f3f713d489",
+        "android_client_info": {
+          "package_name": "com.irosinfo.stage"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB7qwJxZJgKXQzBiGKipCdLn_5gumc32A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
