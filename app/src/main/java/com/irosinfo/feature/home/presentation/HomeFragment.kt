@@ -54,7 +54,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
         setOnScanIrosBtnClicked()
         setOnCaptureImageBtnClicked()
         handleImagePreviewGroupVisibility(isShow = viewModel.byteArrayList.isEmpty())
-        setUpPreviewCaptureImageAdapter()
+        setUpPreviewCaptureImageAdapter(byteArray = viewModel.byteArrayList)
         setOnClearBtnClicked()
         setOnCloseIvClicked()
         setOnSaveBtnClicked()
@@ -111,7 +111,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
     private fun onImageCaptured(serializableBitmap: SerializableBitmap) {
         val byteArray = serializableBitmap.bitmap.bitmapToByteArray()
         viewModel.setByteArrayList(byteArray = byteArray)
-        previewCaptureImageAdapter?.addByteArray(viewModel.byteArrayList)
         binding.handleImagePreviewGroupVisibility(isShow = viewModel.byteArrayList.isEmpty())
     }
 
@@ -121,9 +120,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
         imagePreviewGroup.isVisible = !isShow
     }
 
-    private fun FragmentHomeBinding.setUpPreviewCaptureImageAdapter() {
+    private fun FragmentHomeBinding.setUpPreviewCaptureImageAdapter(byteArray: MutableList<ByteArray> = mutableListOf()) {
         previewCaptureImageAdapter =
-            PreviewCaptureImageAdapter(mutableListOf(), onItemClicked = { bitmap ->
+            PreviewCaptureImageAdapter(byteArray, onItemClicked = { bitmap ->
                 setOnImageClicked(bitmap = bitmap)
             })
         imagePreviewRV.adapter = previewCaptureImageAdapter
