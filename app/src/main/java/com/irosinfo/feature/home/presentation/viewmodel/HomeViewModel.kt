@@ -1,21 +1,20 @@
 package com.irosinfo.feature.home.presentation.viewmodel
 
-import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 
 class HomeViewModel : ViewModel() {
 
-    private val bitmapImageList = mutableListOf<Bitmap>()
+    private val byteArrayImageList = mutableListOf<ByteArray>()
 
 
-    val bitmapList get() = this.bitmapImageList
+    val byteArrayList get() = this.byteArrayImageList
 
-    val bitMabListSize get() = this.bitmapList.size
+    val byteArrayListSize get() = this.byteArrayList.size
 
-    fun setBitmapImage(bitmap: Bitmap) {
-        bitmapImageList.add(bitmap)
+    fun setByteArrayList(byteArray: ByteArray) {
+        byteArrayImageList.add(byteArray)
     }
 
-    fun clearBitmapList() = this.bitmapList.clear()
+    fun clearByteArrayList() = this.byteArrayList.clear()
 
 }

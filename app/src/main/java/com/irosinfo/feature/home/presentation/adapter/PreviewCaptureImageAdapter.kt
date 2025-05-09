@@ -6,11 +6,12 @@ import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.extensions.extensions_module.extensions.byteArrayToBitmap
 import com.irosinfo.databinding.ItemPreviewImageBinding
 import com.utils.utils_module.CommonUtils.load
 
 class PreviewCaptureImageAdapter(
-    private val bitmapList: MutableList<Bitmap>, private val onItemClicked: (Bitmap) -> Unit
+    private val byteArrayList: MutableList<ByteArray>, private val onItemClicked: (Bitmap) -> Unit
 ) : RecyclerView.Adapter<PreviewCaptureImageAdapter.ViewHolder>() {
 
 
@@ -22,13 +23,13 @@ class PreviewCaptureImageAdapter(
         return ViewHolder(binding)
     }
 
-    override fun getItemCount() = bitmapList.size
+    override fun getItemCount() = byteArrayList.size
 
     override fun onBindViewHolder(
         viewHolder: PreviewCaptureImageAdapter.ViewHolder, position: Int
     ) {
-        val item = bitmapList[position]
-        viewHolder.bind(item = item)
+        val item = byteArrayList[position]
+        item.byteArrayToBitmap()?.let { viewHolder.bind(item = it) }
     }
 
     inner class ViewHolder(private val binding: ItemPreviewImageBinding) :
@@ -46,13 +47,13 @@ class PreviewCaptureImageAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun resetPreviewCaptureAdapter() {
-        bitmapList.clear()
+        byteArrayList.clear()
         notifyDataSetChanged()
     }
 
-    fun addBitmaps(newBitmaps: List<Bitmap>) {
-        val startPosition = bitmapList.size
-        bitmapList.addAll(newBitmaps)
-        notifyItemRangeInserted(startPosition, newBitmaps.size)
+    fun addByteArray(newByteArray: List<ByteArray>) {
+        val startPosition = byteArrayList.size
+        byteArrayList.addAll(newByteArray)
+        notifyItemRangeInserted(startPosition, newByteArray.size)
     }
 }
