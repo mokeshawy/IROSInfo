@@ -25,9 +25,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity">
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

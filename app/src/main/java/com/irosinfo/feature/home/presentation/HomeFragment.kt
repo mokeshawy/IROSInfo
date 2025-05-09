@@ -50,7 +50,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
     }
 
     private fun FragmentHomeBinding.setUpViews() {
-        setAppBarImage()
         setOnScanIrosBtnClicked()
         setOnCaptureImageBtnClicked()
         handleImagePreviewGroupVisibility(isShow = viewModel.byteArrayList.isEmpty())
@@ -58,10 +57,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
         setOnClearBtnClicked()
         setOnCloseIvClicked()
         setOnSaveBtnClicked()
-    }
-
-    private fun FragmentHomeBinding.setAppBarImage() {
-        appBarView.setTitleBarTv(R.string.paymentsDistribution)
     }
 
     private fun FragmentHomeBinding.setOnScanIrosBtnClicked() = scanBtn.setOnClickListener {
@@ -173,7 +168,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
     private fun FragmentHomeBinding.savePhoto() {
         val iros = irosNumberEt.text.toString()
         val imageDataList = viewModel.byteArrayList
-        savePhotosIncremented(imageDataList = imageDataList, groupName = "IROS-$iros")
+        savePhotosIncremented(imageDataList = imageDataList, groupName = "IROS$iros")
     }
 
 
@@ -201,7 +196,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
                     contentResolver.openOutputStream(it)?.use { outputStream ->
                         outputStream.write(imageData)
                     }
-                    showShortToast("Successful saving data")
                 } catch (e: Exception) {
                     showShortToast("Failed to save photo: ${e.message}")
                 }
@@ -209,6 +203,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
         }
         progressDialog.dismiss()
         binding.clearData()
+        showShortToast("Successful saving data")
     }
 
 

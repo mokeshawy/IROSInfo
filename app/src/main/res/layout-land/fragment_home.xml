@@ -14,20 +14,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_14sdp"
-            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:text="@string/irosInfo"
             android:textAppearance="@style/SemiBold_Title"
             android:textColor="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/irosNumberTil"
             style="?attr/textInputOutlinedDenseStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_5sdp"
             app:hintEnabled="false"
             app:layout_constraintEnd_toStartOf="@+id/scanBtn"
@@ -50,32 +50,28 @@
             android:layout_width="wrap_content"
             android:text="@string/scanIros"
             app:layout_constraintBottom_toBottomOf="@+id/irosNumberTil"
-            app:layout_constraintEnd_toEndOf="@+id/irosInfoTv"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toEndOf="@id/irosNumberTil"
             app:layout_constraintTop_toTopOf="@+id/irosNumberTil"
             app:layout_goneMarginBottom="@dimen/_350sdp" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/imageCaptureTv"
-            android:layout_width="0dp"
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:text="@string/imageCapture"
-            android:textAppearance="@style/SemiBold_Title"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="@+id/scanBtn"
-            app:layout_constraintStart_toStartOf="@+id/irosNumberTil"
-            app:layout_constraintTop_toBottomOf="@+id/irosNumberTil" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".5" />
 
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/captureImagerBtn"
             style="@style/Widget.Material3.Button.IROSInfo"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:text="@string/captureImage"
-            app:layout_constraintEnd_toEndOf="@+id/imageCaptureTv"
-            app:layout_constraintStart_toStartOf="@+id/imageCaptureTv"
-            app:layout_constraintTop_toBottomOf="@+id/imageCaptureTv"
+            app:layout_constraintEnd_toEndOf="@+id/scanBtn"
+            app:layout_constraintStart_toStartOf="@+id/irosNumberTil"
+            app:layout_constraintTop_toBottomOf="@+id/irosNumberTil"
             app:layout_goneMarginBottom="@dimen/_350sdp" />
 
 
@@ -88,10 +84,10 @@
             android:textAppearance="@style/Regular_Subtitle"
             android:textColor="@color/colorPrimary"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/saveBtn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/captureImagerBtn" />
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/irosInfoTv" />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -103,9 +99,9 @@
             android:paddingBottom="@dimen/_70sdp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/saveBtn"
-            app:layout_constraintEnd_toEndOf="@+id/captureImagerBtn"
-            app:layout_constraintStart_toStartOf="@+id/captureImagerBtn"
-            app:layout_constraintTop_toBottomOf="@+id/captureImagerBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/irosInfoTv"
             app:spanCount="3"
             tools:listitem="@layout/item_preview_image"
             tools:visibility="visible" />
@@ -127,7 +123,6 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_14sdp"
             android:gravity="center"
             android:insetLeft="0dp"
             android:insetTop="0dp"
@@ -139,7 +134,7 @@
             app:cornerRadius="@dimen/_7sdp"
             app:layout_constraintBottom_toBottomOf="@+id/saveBtn"
             app:layout_constraintEnd_toStartOf="@id/saveBtn"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/saveBtn" />
 
 
