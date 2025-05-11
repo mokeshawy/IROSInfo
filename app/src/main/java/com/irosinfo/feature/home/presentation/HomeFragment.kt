@@ -1,19 +1,17 @@
 package com.irosinfo.feature.home.presentation
 
 import android.Manifest
-import android.content.ContentResolver
-import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -28,10 +26,7 @@ import com.irosinfo.core.iros_scan_handler.IrosScanHandler
 import com.irosinfo.databinding.FragmentHomeBinding
 import com.irosinfo.feature.home.presentation.adapter.PreviewCaptureImageAdapter
 import com.irosinfo.feature.home.presentation.viewmodel.HomeViewModel
-import com.irosinfo.ui_component.custom_progress_dialog.ProgressDialog
 import com.utils.utils_module.CommonUtils.load
-import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
 
@@ -41,8 +36,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
     private val viewModel: HomeViewModel by viewModels()
 
     private var previewCaptureImageAdapter: PreviewCaptureImageAdapter? = null
-
-    private val progressDialog: ProgressDialog by inject { parametersOf(requireActivity()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -140,7 +133,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
         checkAndRequestStoragePermission()
     }
 
-    private fun FragmentHomeBinding.checkAndRequestStoragePermission() {
+    private fun checkAndRequestStoragePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             savePhoto()
             return
@@ -158,61 +151,74 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
     private val requestStoragePermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
-                binding.savePhoto()
+                savePhoto()
             } else {
                 showShortToast("Permission denied")
             }
         }
 
 
-    private fun FragmentHomeBinding.savePhoto() {
-        val iros = irosNumberEt.text.toString()
-        val imageDataList = viewModel.byteArrayList
-        savePhotosIncremented(imageDataList = imageDataList, groupName = "IROS$iros")
+    private fun savePhoto() {
+        openDocumentTreeLauncher.launch(null)
     }
 
+    private val openDocumentTreeLauncher =
+        registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
+            if (uri != null) {
+                val takeFlags =
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                requireContext().contentResolver.takePersistableUriPermission(uri, takeFlags)
+                val iros = binding.irosNumberEt.text.toString()
+                val imageDataList = viewModel.byteArrayList
+                savePhotosToSdCardUsingSAF(
+                    imageDataList = imageDataList, folderName = "IROS$iros", uri = uri
+                )
+            } else {
+                showShortToast("No folder selected")
+            }
+        }
 
-    private fun savePhotosIncremented(imageDataList: List<ByteArray>, groupName: String) {
-        val contentResolver = requireContext().contentResolver
-        val relativePath = "${Environment.DIRECTORY_PICTURES}/$groupName"
-        if (isFolderExists(contentResolver = contentResolver, relativePath = relativePath)) {
-            showShortToast("This folder already exists")
+    private fun savePhotosToSdCardUsingSAF(
+        imageDataList: List<ByteArray>, folderName: String, uri: Uri?
+    ) {
+        val baseUriString = uri ?: run {
+            showShortToast("SD card folder not selected")
             return
         }
-        imageDataList.forEachIndexed { index, imageData ->
-            val contentValues = ContentValues().apply {
-                val next = index + 1
-                put(MediaStore.Images.Media.DISPLAY_NAME, "$groupName-$next.jpg")
-                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-                put(MediaStore.Images.Media.RELATIVE_PATH, relativePath)
-            }
 
-            val imageUri: Uri? = contentResolver.insert(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues
-            )
-            imageUri?.let {
+        val baseTreeUri = Uri.parse(baseUriString.toString())
+        val pickedDir = DocumentFile.fromTreeUri(requireContext(), baseTreeUri)
+
+        if (isFolderExistsInSdCard(baseUriString, folderName = folderName)) {
+            showShortToast("Folder already exist")
+            return
+        }
+
+        val newFolder = pickedDir?.createDirectory(folderName)
+        if (newFolder == null) {
+            showShortToast("Unable to create folder on SD card")
+            return
+        }
+
+        imageDataList.forEachIndexed { index, imageData ->
+            val fileName = "$folderName-${index + 1}.jpg"
+            val imageFile = newFolder.createFile("image/jpeg", fileName)
+            imageFile?.uri?.let { uri ->
                 try {
-                    contentResolver.openOutputStream(it)?.use { outputStream ->
-                        outputStream.write(imageData)
+                    requireContext().contentResolver.openOutputStream(uri)?.use {
+                        it.write(imageData)
                     }
                 } catch (e: Exception) {
-                    showShortToast("Failed to save photo: ${e.message}")
+                    showShortToast("Failed to save image: ${e.message}")
                 }
             }
         }
-        showShortToast("Successful saving data")
+        showShortToast("Images saved to SD card")
     }
 
-
-    private fun isFolderExists(contentResolver: ContentResolver, relativePath: String): Boolean {
-        val projection = arrayOf(MediaStore.Images.Media.DISPLAY_NAME)
-        val selection = "${MediaStore.Images.Media.RELATIVE_PATH} LIKE ?"
-        val selectionArgs = arrayOf("$relativePath%")
-        val cursor = contentResolver.query(
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, selection, selectionArgs, null
-        )
-        val folderExists = cursor?.use { it.count > 0 } ?: false
-        return folderExists
+    private fun isFolderExistsInSdCard(sdCardRootUri: Uri, folderName: String): Boolean {
+        val pickedDir = DocumentFile.fromTreeUri(requireContext(), sdCardRootUri) ?: return false
+        return pickedDir.findFile(folderName)?.isDirectory == true
     }
 
 
