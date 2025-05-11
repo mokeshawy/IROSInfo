@@ -9,7 +9,7 @@
     <string name="scanIros">مسح</string>
     <string name="imageCapture">التقاط الصورة</string>
     <string name="captureImage">التقط صورة</string>
-    <string name="save">حفط</string>
+    <string name="save">حفظ</string>
     <string name="clear">حذف</string>
     <string name="thereIsNoImageCapture">لم يتم التقاط صور</string>
     <string name="pleaseEntroIrosNumber">من فضلك أدخل رقم ال IROS</string>

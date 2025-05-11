@@ -179,7 +179,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
             showShortToast("This folder already exists")
             return
         }
-        progressDialog.show()
         imageDataList.forEachIndexed { index, imageData ->
             val contentValues = ContentValues().apply {
                 val next = index + 1
@@ -201,8 +200,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
                 }
             }
         }
-        progressDialog.dismiss()
-        binding.clearData()
         showShortToast("Successful saving data")
     }
 
