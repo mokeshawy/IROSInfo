@@ -26,12 +26,10 @@ import com.extensions.extensions_module.fragment_extensions.navigate
 import com.irosinfo.R
 import com.irosinfo.core.iros_scan_handler.IrosScanHandler
 import com.irosinfo.databinding.FragmentHomeBinding
+import com.irosinfo.feature.domain.enums.SponsorshipType
 import com.irosinfo.feature.home.presentation.adapter.PreviewCaptureImageAdapter
 import com.irosinfo.feature.home.presentation.viewmodel.HomeViewModel
-import com.irosinfo.ui_component.custom_progress_dialog.ProgressDialog
 import com.utils.utils_module.CommonUtils.load
-import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
 
@@ -42,7 +40,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
 
     private var previewCaptureImageAdapter: PreviewCaptureImageAdapter? = null
 
-    private val progressDialog: ProgressDialog by inject { parametersOf(requireActivity()) }
+    private val sponsorshipType get() = viewModel.sponsorshipType.value?.name
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,16 +48,43 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
     }
 
     private fun FragmentHomeBinding.setUpViews() {
-        setOnScanIrosBtnClicked()
+        setOnScanBtnClicked()
         setOnCaptureImageBtnClicked()
         handleImagePreviewGroupVisibility(isShow = viewModel.byteArrayList.isEmpty())
         setUpPreviewCaptureImageAdapter(byteArray = viewModel.byteArrayList)
         setOnClearBtnClicked()
         setOnCloseIvClicked()
         setOnSaveBtnClicked()
+        observeOnTypeInfo()
+        setOnRadioBtnClicked()
     }
 
-    private fun FragmentHomeBinding.setOnScanIrosBtnClicked() = scanBtn.setOnClickListener {
+
+    private fun FragmentHomeBinding.observeOnTypeInfo() =
+        viewModel.sponsorshipType.observe(requireActivity()) {
+            setSponsorshipTypeTv(type = it)
+            irosNumberEt.hint = getString(R.string.pleaseEnterNumber, it.name)
+            imageCaptureTv.text = getString(R.string.imageCapture, it.name)
+        }
+
+
+    private fun FragmentHomeBinding.setSponsorshipTypeTv(type: SponsorshipType) {
+        val res = when (type) {
+            SponsorshipType.IROS -> R.string.orphansSponsorship
+            else -> R.string.widowsSponsorship
+        }
+        sponsorshipTypeTv.text = getString(res)
+    }
+
+    private fun FragmentHomeBinding.setOnRadioBtnClicked() =
+        radioBtnGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.irosBtn -> viewModel.sponsorshipType.value = SponsorshipType.IROS
+                R.id.irwsBtn -> viewModel.sponsorshipType.value = SponsorshipType.IRWS
+            }
+        }
+
+    private fun FragmentHomeBinding.setOnScanBtnClicked() = scanBtn.setOnClickListener {
         (activity as QrcodeManager).startScanQrcode()
     }
 
@@ -72,7 +97,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
     private fun FragmentHomeBinding.setOnCaptureImageBtnClicked() =
         captureImagerBtn.setOnClickListener {
             if (irosNumberEt.text.isNullOrEmpty()) {
-                showShortToast(getString(R.string.pleaseEntroIrosNumber))
+                showShortToast(getString(R.string.pleaseEnterNumber, sponsorshipType))
                 return@setOnClickListener
             }
             navigateToCaptureImage()
@@ -168,7 +193,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
     private fun FragmentHomeBinding.savePhoto() {
         val iros = irosNumberEt.text.toString()
         val imageDataList = viewModel.byteArrayList
-        savePhotosIncremented(imageDataList = imageDataList, groupName = "IROS$iros")
+        savePhotosIncremented(imageDataList = imageDataList, groupName = "$sponsorshipType$iros")
     }
 
 
@@ -181,7 +206,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
         }
         imageDataList.forEachIndexed { index, imageData ->
             val contentValues = ContentValues().apply {
-                val next = index + 1
+                val next = 'a' + index
                 put(MediaStore.Images.Media.DISPLAY_NAME, "$groupName-$next.jpg")
                 put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
                 put(MediaStore.Images.Media.RELATIVE_PATH, relativePath)

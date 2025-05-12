@@ -10,36 +10,73 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/irosInfoTv"
+            android:id="@+id/sponsorshipTypeTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_14sdp"
-            android:layout_marginTop="@dimen/_25sdp"
-            android:text="@string/irosInfo"
-            android:textAppearance="@style/SemiBold_Title"
+            android:layout_marginTop="@dimen/_45sdp"
+            tools:text="@string/orphansSponsorship"
+            android:textAppearance="@style/SemiBold_H3"
             android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+        <RadioGroup
+            android:id="@+id/radioBtnGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/sponsorshipTypeTv"
+            app:layout_constraintStart_toStartOf="@+id/sponsorshipTypeTv"
+            app:layout_constraintTop_toBottomOf="@+id/sponsorshipTypeTv">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/irosBtn"
+                style="@style/radiBtnTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_46sdp"
+                android:button="@drawable/type_selector"
+                android:paddingStart="@dimen/_7sdp"
+                android:checked="true"
+                android:text="@string/iros"
+                android:textAppearance="@style/Regular_Body"
+                tools:ignore="RtlSymmetry" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/irwsBtn"
+                style="@style/radiBtnTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_63sdp"
+                android:button="@drawable/type_selector"
+                android:paddingStart="@dimen/_7sdp"
+                android:text="@string/irws"
+                android:textAppearance="@style/Regular_Body"
+                tools:ignore="RtlSymmetry" />
+        </RadioGroup>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/irosNumberTil"
             style="?attr/textInputOutlinedDenseStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_5sdp"
             app:hintEnabled="false"
             app:layout_constraintEnd_toStartOf="@+id/scanBtn"
-            app:layout_constraintStart_toStartOf="@+id/irosInfoTv"
-            app:layout_constraintTop_toBottomOf="@+id/irosInfoTv"
+            app:layout_constraintStart_toStartOf="@+id/sponsorshipTypeTv"
+            app:layout_constraintTop_toBottomOf="@+id/radioBtnGroup"
             app:startIconTint="@color/lightGray">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/irosNumberEt"
                 style="@style/appTextFieldStyle"
-                android:hint="@string/enterIrosNumber"
-                android:inputType="number" />
+                android:inputType="number"
+                tools:hint="@string/pleaseEnterNumber" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,7 +87,7 @@
             android:layout_width="wrap_content"
             android:text="@string/scanIros"
             app:layout_constraintBottom_toBottomOf="@+id/irosNumberTil"
-            app:layout_constraintEnd_toEndOf="@+id/irosInfoTv"
+            app:layout_constraintEnd_toEndOf="@+id/sponsorshipTypeTv"
             app:layout_constraintStart_toEndOf="@id/irosNumberTil"
             app:layout_constraintTop_toTopOf="@+id/irosNumberTil"
             app:layout_goneMarginBottom="@dimen/_350sdp" />
@@ -60,12 +97,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            android:text="@string/imageCapture"
             android:textAppearance="@style/SemiBold_Title"
             android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="@+id/scanBtn"
             app:layout_constraintStart_toStartOf="@+id/irosNumberTil"
-            app:layout_constraintTop_toBottomOf="@+id/irosNumberTil" />
+            app:layout_constraintTop_toBottomOf="@+id/irosNumberTil"
+            tools:text="@string/imageCapture" />
 
 
         <com.google.android.material.button.MaterialButton
