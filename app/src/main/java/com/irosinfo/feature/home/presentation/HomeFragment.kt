@@ -193,13 +193,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
     private fun FragmentHomeBinding.savePhoto() {
         val iros = irosNumberEt.text.toString()
         val imageDataList = viewModel.byteArrayList
-        savePhotosIncremented(imageDataList = imageDataList, groupName = "$sponsorshipType$iros")
+
+        savePhotosIncremented(
+            imageDataList = imageDataList,
+            parentGroupName = "$sponsorshipType",
+            groupName = "$sponsorshipType$iros"
+        )
     }
 
 
-    private fun savePhotosIncremented(imageDataList: List<ByteArray>, groupName: String) {
+    private fun savePhotosIncremented(
+        imageDataList: List<ByteArray>,
+        parentGroupName: String,
+        groupName: String
+    ) {
         val contentResolver = requireContext().contentResolver
-        val relativePath = "${Environment.DIRECTORY_PICTURES}/$groupName"
+        val relativePath = "${Environment.DIRECTORY_PICTURES}/$parentGroupName/$groupName"
         if (isFolderExists(contentResolver = contentResolver, relativePath = relativePath)) {
             showShortToast("This folder already exists")
             return
