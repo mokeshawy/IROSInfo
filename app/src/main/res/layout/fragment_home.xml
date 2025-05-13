@@ -60,7 +60,7 @@
         </RadioGroup>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/irosNumberTil"
+            android:id="@+id/sponsorshipNumberTil"
             style="?attr/textInputOutlinedDenseStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
             app:startIconTint="@color/lightGray">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/irosNumberEt"
+                android:id="@+id/sponsorshipNumberEt"
                 style="@style/appTextFieldStyle"
                 android:inputType="number"
                 tools:hint="@string/pleaseEnterNumber" />
@@ -86,10 +86,10 @@
             style="@style/Widget.Material3.Button.IROSInfo"
             android:layout_width="wrap_content"
             android:text="@string/scanIros"
-            app:layout_constraintBottom_toBottomOf="@+id/irosNumberTil"
+            app:layout_constraintBottom_toBottomOf="@+id/sponsorshipNumberTil"
             app:layout_constraintEnd_toEndOf="@+id/sponsorshipTypeTv"
-            app:layout_constraintStart_toEndOf="@id/irosNumberTil"
-            app:layout_constraintTop_toTopOf="@+id/irosNumberTil"
+            app:layout_constraintStart_toEndOf="@id/sponsorshipNumberTil"
+            app:layout_constraintTop_toTopOf="@+id/sponsorshipNumberTil"
             app:layout_goneMarginBottom="@dimen/_350sdp" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -100,8 +100,8 @@
             android:textAppearance="@style/SemiBold_Title"
             android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="@+id/scanBtn"
-            app:layout_constraintStart_toStartOf="@+id/irosNumberTil"
-            app:layout_constraintTop_toBottomOf="@+id/irosNumberTil"
+            app:layout_constraintStart_toStartOf="@+id/sponsorshipNumberTil"
+            app:layout_constraintTop_toBottomOf="@+id/sponsorshipNumberTil"
             tools:text="@string/imageCapture" />
 
 

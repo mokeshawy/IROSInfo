@@ -24,14 +24,14 @@ import com.camera.camera_module.camerax.scan_qrcode.qrcode_manager.QrcodeManager
 import com.extensions.extensions_module.extensions.bitmapToByteArray
 import com.extensions.extensions_module.fragment_extensions.navigate
 import com.irosinfo.R
-import com.irosinfo.core.iros_scan_handler.IrosScanHandler
+import com.irosinfo.core.iros_scan_handler.SponsorshipNumberScanHandler
 import com.irosinfo.databinding.FragmentHomeBinding
 import com.irosinfo.feature.domain.enums.SponsorshipType
 import com.irosinfo.feature.home.presentation.adapter.PreviewCaptureImageAdapter
 import com.irosinfo.feature.home.presentation.viewmodel.HomeViewModel
 import com.utils.utils_module.CommonUtils.load
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), SponsorshipNumberScanHandler {
 
     override fun layoutInflater() = FragmentHomeBinding.inflate(layoutInflater)
 
@@ -63,7 +63,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
     private fun FragmentHomeBinding.observeOnTypeInfo() =
         viewModel.sponsorshipType.observe(requireActivity()) {
             setSponsorshipTypeTv(type = it)
-            irosNumberEt.hint = getString(R.string.pleaseEnterNumber, it.name)
+            sponsorshipNumberEt.hint = getString(R.string.pleaseEnterNumber, it.name)
             imageCaptureTv.text = getString(R.string.imageCapture, it.name)
         }
 
@@ -89,14 +89,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
     }
 
 
-    override fun setIrosNumber(irosNumber: String) {
-        binding.irosNumberEt.setText(irosNumber)
+    override fun setSponsorshipNumber(sponsorshipNumber: String) {
+        binding.sponsorshipNumberEt.setText(sponsorshipNumber)
     }
 
 
     private fun FragmentHomeBinding.setOnCaptureImageBtnClicked() =
         captureImagerBtn.setOnClickListener {
-            if (irosNumberEt.text.isNullOrEmpty()) {
+            if (sponsorshipNumberEt.text.isNullOrEmpty()) {
                 showShortToast(getString(R.string.pleaseEnterNumber, sponsorshipType))
                 return@setOnClickListener
             }
@@ -191,13 +191,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
 
 
     private fun FragmentHomeBinding.savePhoto() {
-        val iros = irosNumberEt.text.toString()
+        val sponsorshipNumber = sponsorshipNumberEt.text.toString()
         val imageDataList = viewModel.byteArrayList
 
         savePhotosIncremented(
             imageDataList = imageDataList,
             parentGroupName = "$sponsorshipType",
-            groupName = "$sponsorshipType$iros"
+            groupName = "$sponsorshipType$sponsorshipNumber"
         )
     }
 
@@ -251,7 +251,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), IrosScanHandler {
 
 
     private fun FragmentHomeBinding.clearData() {
-        irosNumberEt.setText("")
+        sponsorshipNumberEt.setText("")
         viewModel.clearByteArrayList()
         previewCaptureImageAdapter?.resetPreviewCaptureAdapter()
         handleImagePreviewGroupVisibility(isShow = viewModel.byteArrayList.isEmpty())

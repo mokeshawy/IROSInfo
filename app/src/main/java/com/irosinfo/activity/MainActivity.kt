@@ -11,7 +11,7 @@ import com.camera.camera_module.camerax.utils.Constants
 import com.common.common_module.error.AppError
 import com.common.common_module.error.QrCodeScanException
 import com.irosinfo.R
-import com.irosinfo.core.iros_scan_handler.IrosScanHandler
+import com.irosinfo.core.iros_scan_handler.SponsorshipNumberScanHandler
 import com.irosinfo.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding, Int>(), QrcodeManager {
@@ -48,6 +48,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, Int>(), QrcodeManager {
     }
 
     private fun handleScanIros(irosNumber: String) {
-        (getCurrentFragment() as? IrosScanHandler)?.setIrosNumber(irosNumber)
+        (getCurrentFragment() as? SponsorshipNumberScanHandler)?.setSponsorshipNumber(irosNumber)
     }
 }
