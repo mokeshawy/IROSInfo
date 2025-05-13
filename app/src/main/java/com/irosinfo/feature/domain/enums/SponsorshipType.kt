@@ -1,5 +1,5 @@
 package com.irosinfo.feature.domain.enums
 
 enum class SponsorshipType {
-    IROS, IRWS
+    IROS, IRWS, ORPHANS, WIDOWS
 }

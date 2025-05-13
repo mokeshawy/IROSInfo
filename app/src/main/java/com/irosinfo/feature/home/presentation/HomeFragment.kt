@@ -193,10 +193,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), SponsorshipNumberScanH
     private fun FragmentHomeBinding.savePhoto() {
         val sponsorshipNumber = sponsorshipNumberEt.text.toString()
         val imageDataList = viewModel.byteArrayList
-
+        val parentGroupName = when {
+            sponsorshipType == SponsorshipType.IROS.name -> SponsorshipType.ORPHANS.name
+            else -> SponsorshipType.WIDOWS.name
+        }
         savePhotosIncremented(
             imageDataList = imageDataList,
-            parentGroupName = "$sponsorshipType",
+            parentGroupName = parentGroupName,
             groupName = "$sponsorshipType$sponsorshipNumber"
         )
     }
