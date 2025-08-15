@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.irosinfo"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.irosinfo"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 5
         versionName = "1.5.0"
 
@@ -66,18 +66,19 @@ dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 
-    implementation("androidx.test.ext:junit-ktx:1.2.1")
+    implementation("androidx.test.ext:junit-ktx:1.3.0")
 
     implementation(project(path = ":common"))
     implementation(project(path = ":common:bases"))
+    implementation(project(path = ":common:storage"))
     implementation(project(path = ":common:camera"))
     implementation(project(path = ":common:connectivity"))
     implementation(project(path = ":common:crash_reporting"))
     implementation(project(path = ":common:extensions"))
     implementation(project(path = ":common:utils"))
 
-    api("com.google.dagger:hilt-android:2.52")
-    kapt("com.google.dagger:hilt-android-compiler:2.52")
+    api("com.google.dagger:hilt-android:2.57")
+    kapt("com.google.dagger:hilt-android-compiler:2.57")
     kapt("androidx.hilt:hilt-compiler:1.2.0")
     api("androidx.hilt:hilt-navigation-fragment:1.2.0")
 }

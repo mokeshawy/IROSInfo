@@ -29,7 +29,11 @@ import com.irosinfo.databinding.FragmentHomeBinding
 import com.irosinfo.feature.domain.enums.SponsorshipType
 import com.irosinfo.feature.home.presentation.adapter.PreviewCaptureImageAdapter
 import com.irosinfo.feature.home.presentation.viewmodel.HomeViewModel
+import com.irosinfo.ui_component.custom_progress_dialog.ProgressDialog
 import com.utils.utils_module.CommonUtils.load
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
+import kotlin.getValue
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), SponsorshipNumberScanHandler {
 
@@ -37,6 +41,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), SponsorshipNumberScanH
 
 
     private val viewModel: HomeViewModel by viewModels()
+
+    private val progressDialog: ProgressDialog by inject { parametersOf(requireActivity()) }
 
     private var previewCaptureImageAdapter: PreviewCaptureImageAdapter? = null
 
@@ -162,6 +168,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), SponsorshipNumberScanH
     }
 
     private fun FragmentHomeBinding.setOnSaveBtnClicked() = saveBtn.setOnClickListener {
+        progressDialog.show()
+        clearBtn.isEnabled = false
         checkAndRequestStoragePermission()
     }
 
@@ -213,6 +221,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), SponsorshipNumberScanH
         val contentResolver = requireContext().contentResolver
         val relativePath = "${Environment.DIRECTORY_PICTURES}/$parentGroupName/$groupName"
         if (isFolderExists(contentResolver = contentResolver, relativePath = relativePath)) {
+            progressDialog.dismiss()
+            binding.clearBtn.isEnabled = true
             showShortToast("This folder already exists")
             return
         }
@@ -237,6 +247,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), SponsorshipNumberScanH
                 }
             }
         }
+        progressDialog.dismiss()
+        binding.clearBtn.isEnabled = true
         showShortToast("Successful saving data")
     }
 

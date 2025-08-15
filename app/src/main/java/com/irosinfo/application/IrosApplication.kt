@@ -3,6 +3,7 @@ package com.irosinfo.application
 import com.bases.bases_module.base_application.BaseApplication
 import com.common.common_module.BuildConfig
 import com.crash_reporting.crash_reporting_module.crash_reporting.CrashReportingHandler
+import com.crash_reporting.crash_reporting_module.crash_reporting.crash_reporting_tools.AppReportingTool
 import com.crash_reporting.crash_reporting_module.crash_reporting.crash_reporting_tools.FirebaseCrashReportingTool
 import com.google.firebase.FirebaseApp
 import com.irosinfo.core.di.appModule
@@ -11,11 +12,12 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import timber.log.Timber
+import kotlin.getValue
 
 class IrosApplication : BaseApplication() {
 
 
-    private val firebaseCrashReportingTool: FirebaseCrashReportingTool by inject()
+    private val appReportingTool: AppReportingTool by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -44,8 +46,8 @@ class IrosApplication : BaseApplication() {
     }
 
     override fun addCrashReportingTools(crashReportingHandler: CrashReportingHandler?) {
-        if (this::firebaseCrashReportingTool.isLateinit) return
-        crashReportingHandler?.registerCrashReportingTool(firebaseCrashReportingTool)
+        if (this::appReportingTool.isLateinit) return
+        crashReportingHandler?.registerCrashReportingTool(appReportingTool)
     }
 
     override fun getRemoteDebuggerPort() = 5055
