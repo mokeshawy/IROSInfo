@@ -96,7 +96,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), SponsorshipNumberScanH
 
 
     override fun setSponsorshipNumber(sponsorshipNumber: String) {
-        binding.sponsorshipNumberEt.setText(sponsorshipNumber)
+        val prefixes = listOf(SponsorshipType.IROS.name, SponsorshipType.IRWS.name)
+        val newNumber = prefixes.fold(initial = sponsorshipNumber) { current, prefix ->
+            current.removePrefix(prefix)
+        }
+        binding.sponsorshipNumberEt.setText(newNumber)
     }
 
 
